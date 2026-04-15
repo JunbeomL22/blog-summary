@@ -2,7 +2,7 @@
 
 > 블로그: [https://jblee.dev](https://jblee.dev)
 >
-> AI 활용, 매매 시스템 설계에 대한 기술 노트 모음
+> AI 활용, 금융수학, 매매 시스템 설계에 대한 기술 노트 모음
 
 ---
 
@@ -37,6 +37,22 @@
 - [(7-5) 실전 배포: Mistral-Vibe 설치](https://jblee.dev/posts/ai-airgap-mistral-vibe/) — Claude Code와 유사한 CLI 에이전트 코딩 도구 Mistral-Vibe를 각 개발자 PC에 설치합니다. `pip download`로 50~60개 의존성 패키지를 미리 내려받아 폐쇄망으로 옮긴 뒤 Python 가상환경에서 오프라인 설치하고, vLLM 서버와 연동하는 과정을 다룹니다.
 
 - [(7-6) 실전 배포: Qwen-Code 설치](https://jblee.dev/posts/ai-airgap-qwencode/) — Alibaba의 CLI 코딩 에이전트 Qwen-Code를 Node.js 기반으로 폐쇄망에 설치합니다. `npm install`로 의존성을 로컬에 내려받아 압축 후 전송하고, `npm link`로 전역 등록합니다. vLLM 실행 시 `--tool-call-parser qwen3_xml` 옵션으로 tool calling을 활성화하는 방법도 설명합니다. 시리즈 마지막 편.
+
+---
+
+## 금융수학
+
+실무 중심의 금융수학 적용 사례. 데이터 분석 기법, 파생상품 가격 결정, 변동성 관리 등을 다룹니다.
+
+- [시리즈 소개](https://jblee.dev/posts/quant-intro/) — 금융수학 시리즈의 전체 구성을 안내합니다. 차익거래 계산, 옵션 가격 결정, 변동성 관리 등 실무 중심의 금융수학 적용 사례를 다룰 예정입니다.
+
+### 데이터 분석
+
+- [EWMA & EWMS - 메모리 O(1)과 Irregular Interval 처리](https://jblee.dev/posts/ewma/) — EWMA(지수가중이동평균)는 직전 평균값만 재활용하는 재귀식으로, 메모리 O(1)만으로 지수 가중 평균을 계산합니다. 피쳐가 많아질수록 캐시 압박이 커지는 매매 시스템에서 왜 메모리 효율이 중요한지 설명하고, 반감기(half-life)를 도입해 데이터가 불규칙한 간격으로 들어오는 실제 매매 환경에도 동일한 프레임워크를 적용하는 방법을 다룹니다. EWMS(지수가중이동합)도 함께 정의합니다.
+
+- [피쳐 정규화 - EWMA 기반 Z-Score와 스케일 안정화](https://jblee.dev/posts/normalizer/) — 트레이딩 피쳐의 절대값만으로는 크고 작음을 판단하기 어려우므로 "평소 대비 얼마나 벗어났는가"로 변환하는 정규화가 필요합니다. 트레이딩에서 표준인 rolling z-score를 EWMA로 구현해 메모리 O(1)을 달성하는 방법과, 분모(표준편차)가 0에 수렴할 때의 스케일 안정화 기법(워밍업 카운트, 출력 클리핑, 장기 변동성 혼합)을 설명합니다. Min-max 정규화가 금융 데이터에 부적합한 이유도 다룹니다.
+
+- [(Feature 1) Order Flow Imbalance](https://jblee.dev/posts/ofi/) — OFI는 호가창 최우선 호가의 변화를 추적하여 매수/매도 압력을 하나의 스칼라로 수치화한 지표입니다. Cont et al. (2010) 논문의 단순화된 호가창 모델에서 OFI와 가격 변화의 선형 관계를 유도하고, 실제 사용하는 수식을 매수호가 상승/유지/하락 세 경우로 나누어 설명합니다. EWMS를 적용해 메모리 O(1)로 계산하는 방법도 포함합니다.
 
 ---
 
